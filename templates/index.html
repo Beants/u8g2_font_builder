@@ -4,6 +4,9 @@
     <title>my font tools</title>
 </head>
 <body>
+{% if message%}
+<p>message</p>
+{% endif%}
 <form action="{{ url_for('download') }}" method="POST">
     <label>
         Font Name: <input type="text" name="font_name" placeholder="Font Name">
@@ -11,7 +14,7 @@
     <label>
         Text:<input type="text" name="text" placeholder="Text">
     </label>
-    <button type="submit" formtarget="_blank"> submit </button>
+    <button type="submit" formtarget="_blank"> submit</button>
 
 </form>
 </body>

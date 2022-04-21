@@ -21,7 +21,7 @@ class FontTools:
     def _parse(self):
         self.__gen_map_file()
         self.__gen_h_file()
-        _ = self.c_file
+        self.__gen_c_file()
 
     def __gen_map_file(self):
         words = list(set(list(self._text)))
@@ -37,7 +37,8 @@ class FontTools:
 
     def __gen_c_file(self):
         command = f'{BDFCONV_PATH} -v {self._bdf_path} -b {self._build_mode} -f {self._font_format} -m "{self._map}" -n {self._font_name} -o _{self._font_name}.c'
-        os.system(command)
+        if os.system(command) != 0:
+            raise TimeoutError(f'command"{command}" run failed!')
         with open(f'_{self._font_name}.c', 'r') as f:
             res = f'#include "{self._font_name}.h"\n' + f.read()
         os.system(f'rm -f _{self._font_name}.c')
