@@ -6,6 +6,8 @@ RUN unzip master.zip && mv u8g2-master u8g2 && rm -f master.zip
 
 
 RUN cd u8g2/tools/font/bdfconv && make && chmod a+x bdfconv
+COPY requirement.txt requirement.txt
+
 RUN pip3 install -r requirement.txt
 
 COPY *.py ./
