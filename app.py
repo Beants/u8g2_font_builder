@@ -14,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 
 @app.route('/', methods=['GET'])
 def index():
-    return
+    return render_template('index.html')
 
 
 @app.route('/new_font', methods=['POST'])
