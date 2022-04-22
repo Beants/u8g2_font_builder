@@ -20,7 +20,11 @@ def index():
 @app.route('/new_font', methods=['POST'])
 def download():
     font_name = request.form['font_name']
+    if not font_name:
+        return render_template('index.html', message='Please input font name.')
     text = request.form['text']
+    if not text:
+        return render_template('index.html', message='Please input text.')
     try:
         font = FontTools(font_name, text)
         response = make_response(
@@ -31,7 +35,7 @@ def download():
             )
         )
         return response
-    except TypeError as e:
+    except Exception as e:
         return render_template('index.html', message=e.__str__())
 
 

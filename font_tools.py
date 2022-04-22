@@ -1,14 +1,17 @@
 import io
 import os
+import re
 import time
 import zipfile
 
 from env import BDFCONV_PATH, U8G2_PATH
 
+FONT_NAME_REGULATE_REGEX = re.compile(r'\W+')
+
 
 class FontTools:
     def __init__(self, font_name, text):
-        self._font_name = font_name
+        self._font_name = FONT_NAME_REGULATE_REGEX.sub('_', font_name.strip())
         self._text = text
         self._id = str(hash(self._font_name + str(time.time())))
         self._map = None
