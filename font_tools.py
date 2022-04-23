@@ -1,4 +1,5 @@
 import io
+import logging
 import os
 import re
 import time
@@ -7,6 +8,9 @@ import zipfile
 from env import BDFCONV_PATH, U8G2_PATH
 
 FONT_NAME_REGULATE_REGEX = re.compile(r'\W+')
+
+logger = logging.getLogger('waitress')
+logger.setLevel(logging.DEBUG)
 
 
 class FontTools:
@@ -20,6 +24,7 @@ class FontTools:
         self._bdf_path = U8G2_PATH + 'tools/font/bdf/unifont.bdf'
         self._build_mode = 0
         self._font_format = 1
+        logger.debug(f'Start Parsing {self._font_name} with text:"{self._text}"')
 
     def _parse(self):
         self.__gen_map_file()
@@ -31,6 +36,7 @@ class FontTools:
         self._map = '32-128'
         for word in words:
             self._map += ',$' + word.encode('unicode-escape')[2:].decode()
+        logger.debug(f'Got map file:{self._map}')
 
     def __gen_h_file(self):
         with open('static/template_font.h', 'r') as f:
