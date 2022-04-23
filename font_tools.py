@@ -55,6 +55,11 @@ class FontTools:
         with open(f'_{self._font_name}.c', 'r') as f:
             res = f'#include "{self._font_name}.h"\n' + f.read()
         os.system(f'rm -f _{self._font_name}.c')
+        logger.debug(f'Run command "rm -f _{self._font_name}.c"')
+
+        os.system(f'rm -f {self._font_name}.map')
+        logger.debug(f'Run command "rm -f {self._font_name}.map"')
+
         self._c_file = str.encode(res, 'utf-8')
 
     @property
