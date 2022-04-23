@@ -33,10 +33,13 @@ class FontTools:
 
     def __gen_map_file(self):
         words = list(set(list(self._text)))
-        self._map = '32-128'
+        map_ = '32-128'
         for word in words:
-            self._map += ',$' + word.encode('unicode-escape')[2:].decode()
-        logger.debug(f'Got map file:{self._map}')
+            map_ += ',\n$' + word.encode('unicode-escape')[2:].decode()
+        with open(f'{self._font_name}.map', 'w') as f:
+            f.write(map_)
+        self._map = f'{self._font_name}.map'
+        logger.debug(f'Got map file "self._map ":"{map_}"')
 
     def __gen_h_file(self):
         with open('static/template_font.h', 'r') as f:
@@ -45,7 +48,8 @@ class FontTools:
         self._h_file = str.encode(res, 'utf-8')
 
     def __gen_c_file(self):
-        command = f'{BDFCONV_PATH} -v {self._bdf_path} -b {self._build_mode} -f {self._font_format} -m "{self._map}" -n {self._font_name} -o _{self._font_name}.c'
+        command = f'{BDFCONV_PATH} -v {self._bdf_path} -b {self._build_mode} -f {self._font_format} -M "{self._map}" -n {self._font_name} -o _{self._font_name}.c'
+        logger.debug(f'Run command "{command}"')
         if os.system(command) != 0:
             raise TimeoutError(f'command"{command}" run failed!')
         with open(f'_{self._font_name}.c', 'r') as f:
