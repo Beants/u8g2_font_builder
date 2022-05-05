@@ -16,7 +16,7 @@ COPY *.py ./
 COPY templates templates
 COPY static static
 RUN ls -l
-COPY SourceHanSerifSC-VF.ttf static/
+RUN mv SourceHanSerifSC-VF.ttf static/
 CMD python3 app.py
 
 
