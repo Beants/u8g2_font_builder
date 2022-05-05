@@ -15,6 +15,7 @@ RUN pip3 install -r requirements.txt
 COPY *.py ./
 COPY templates templates
 COPY static static
+RUN ls -l
 COPY SourceHanSerifSC-VF.ttf static/
 CMD python3 app.py
 
