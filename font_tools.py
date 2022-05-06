@@ -15,7 +15,7 @@ logger.setLevel(logging.DEBUG)
 
 class FontTools:
     def __init__(self, font_name, text, font='SourceHanSerifSC_VF.ttf', size=8):
-        self._font_name = FONT_NAME_REGULATE_REGEX.sub('_', font_name.strip())
+        self._font_name = FONT_NAME_REGULATE_REGEX.sub('_', font_name.strip())+f'_{size}'
         self._text = text
         self._id = str(hash(self._font_name + str(time.time())))
         self._map = None
