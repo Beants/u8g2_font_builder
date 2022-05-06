@@ -37,7 +37,7 @@ class FontTools:
             command = f'{OTF_2_BDF_PATH} -r 72 -p {size} static/font/{font} -o {BDF_PATH}/{bdf_name}'
             logger.debug(f'Run command "{command}"')
             os.system(command)
-        return BDF_PATH+'/'+bdf_name
+        return BDF_PATH + '/' + bdf_name
 
     def _parse(self):
         self.__gen_map_file()
@@ -65,7 +65,7 @@ class FontTools:
         logger.debug(f'Run command "{command}"')
         if os.system(command) != 0:
             raise TimeoutError(f'command"{command}" run failed!')
-        with open(f'_{self._font_name}.c', 'r') as f:
+        with open(f'_{self._font_name}.c', 'r', errors='ignore') as f:
             res = f'#include "{self._font_name}.h"\n' + f.read()
         os.system(f'rm -f _{self._font_name}.c')
         logger.debug(f'Run command "rm -f _{self._font_name}.c"')
