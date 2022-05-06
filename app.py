@@ -27,7 +27,7 @@ def download():
     text = request.form['text']
     font = request.form.get('font')
     size = request.form.get('size')
-    print(request.form)
+    logger.info('get form ',request.form)
     if not text:
         return render_template('index.html', message='Please input text.')
     try:
@@ -41,7 +41,7 @@ def download():
         )
         return response
     except Exception as e:
-        print(e)
+        logger.error(e)
         return render_template('index.html', message=e.__str__())
 
 
