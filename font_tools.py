@@ -5,7 +5,7 @@ import re
 import time
 import zipfile
 
-from env import BDFCONV_PATH, U8G2_PATH
+from env import BDFCONV_PATH, BDF_PATH, OTF_2_BDF_PATH
 
 FONT_NAME_REGULATE_REGEX = re.compile(r'\W+')
 
@@ -14,17 +14,29 @@ logger.setLevel(logging.DEBUG)
 
 
 class FontTools:
-    def __init__(self, font_name, text):
+    def __init__(self, font_name, text, font='SourceHanSerifSC_VF.ttf', size=8):
         self._font_name = FONT_NAME_REGULATE_REGEX.sub('_', font_name.strip())
         self._text = text
         self._id = str(hash(self._font_name + str(time.time())))
         self._map = None
         self._h_file = None
         self._c_file = None
-        self._bdf_path = U8G2_PATH + 'tools/font/bdf/unifont.bdf'
+        self._bdf_path = self.__get_bdf_file(font, size)
         self._build_mode = 0
         self._font_format = 1
         logger.debug(f'Start Parsing {self._font_name} with text:"{self._text}"')
+
+    @staticmethod
+    def __get_bdf_file(font: str, size: int) -> str:
+        """
+        :return: bdf path
+        """
+        if not os.path.exists(BDF_PATH):
+            os.mkdir(BDF_PATH)
+        if (bdf_name := font + '_' + 'size.bdf') not in os.listdir(BDF_PATH):
+            command = f'./{OTF_2_BDF_PATH} -r 72 -p {size} {font} -o {bdf_name}'
+            os.system(command)
+        return bdf_name
 
     def _parse(self):
         self.__gen_map_file()

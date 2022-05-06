@@ -1,5 +1,6 @@
 import io
 import logging
+import os
 
 from flask import Flask, render_template, request, make_response, send_file
 from waitress import serve
@@ -14,7 +15,8 @@ logger.setLevel(logging.DEBUG)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    fonts = os.listdir('static/font')
+    return render_template('index.html', fonts=fonts)
 
 
 @app.route('/new_font', methods=['POST'])

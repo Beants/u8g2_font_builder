@@ -46,9 +46,18 @@
 				<input type="text" class="form-control" id="textInput" name="text" placeholder="Text" required>
 				<label for="textInput">Text</label>
 			</div>
+			<select class="form-select" aria-label="TTF Font Name">
+				{% for name in fonts %}
+					<option {% if loop.first %}selected{% endif %} value="{{ name }}">{{ name }}</option>
+				{% endfor %}
+			</select>
+			<div class="form-floating">
+				<input type="number" class="form-control" id="sizeInput" name="size" placeholder="Size" required>
+				<label for="sizeInput">Size</label>
+			</div>
 			<div style="padding-bottom: 10px"></div>
 
-			<button class="w-100 btn btn-lg btn-primary"  formtarget="_blank" type="submit"> submit</button>
+			<button class="w-100 btn btn-lg btn-primary" formtarget="_blank" type="submit"> submit</button>
 
 		</form>
 	</main>
