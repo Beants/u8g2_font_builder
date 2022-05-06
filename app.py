@@ -27,6 +27,7 @@ def download():
     text = request.form['text']
     font = request.form.get('font')
     size = request.form.get('size')
+    print(request.form)
     if not text:
         return render_template('index.html', message='Please input text.')
     try:
@@ -46,5 +47,5 @@ def download():
 
 if __name__ == '__main__':
     print('server is running on 0.0.0.0:8080')
-    serve(app, host='0.0.0.0', port=8080)
+    serve(app, host='0.0.0.0', port=8080,)
     # app.run(host='0.0.0.0', port=80)
