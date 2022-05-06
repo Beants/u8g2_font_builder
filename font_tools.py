@@ -36,7 +36,7 @@ class FontTools:
         if (bdf_name := font + '_' + 'size.bdf') not in os.listdir(BDF_PATH):
             command = f'./{OTF_2_BDF_PATH} -r 72 -p {size} {font} -o {bdf_name}'
             os.system(command)
-        return bdf_name
+        return BDF_PATH+'/'+bdf_name
 
     def _parse(self):
         self.__gen_map_file()
