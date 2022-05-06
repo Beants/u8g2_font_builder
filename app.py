@@ -25,9 +25,9 @@ def download():
     if not font_name:
         return render_template('index.html', message='Please input font name.')
     text = request.form['text']
-    font = request.form.get('font')
-    size = request.form.get('size')
-    logger.info('get form ',request.form.to_dict())
+    font = request.form['font']
+    size = request.form['size']
+    logger.info('parsing:', request.form.to_dict())
     if not text:
         return render_template('index.html', message='Please input text.')
     try:
