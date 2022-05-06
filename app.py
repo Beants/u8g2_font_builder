@@ -25,10 +25,12 @@ def download():
     if not font_name:
         return render_template('index.html', message='Please input font name.')
     text = request.form['text']
+    font = request.form.get('font')
+    size = request.form.get('size')
     if not text:
         return render_template('index.html', message='Please input text.')
     try:
-        font = FontTools(font_name, text)
+        font = FontTools(font_name, text, font, size)
         response = make_response(
             send_file(
                 path_or_file=io.BytesIO(font.zip),

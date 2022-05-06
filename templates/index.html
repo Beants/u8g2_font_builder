@@ -40,17 +40,21 @@
 			<div class="form-floating">
 				<input type="text" class="form-control" id="fontNameInput" name="font_name"
 				       placeholder="u8g2_xx_xxx_x_font" required>
-				<label for="fontNameInput">Font Name</label>
+				<label for="fontNameInput">Your Font Name</label>
 			</div>
-			<div class="form-floating">
+			<div class="form-floating" style="padding-bottom:2px">
 				<input type="text" class="form-control" id="textInput" name="text" placeholder="Text" required>
 				<label for="textInput">Text</label>
 			</div>
-			<select class="form-select" aria-label="TTF Font Name">
-				{% for name in fonts %}
-					<option {% if loop.first %}selected{% endif %} value="{{ name }}">{{ name }}</option>
-				{% endfor %}
-			</select>
+			<div class="form-floating">
+				<select class="form-select" id="fontSelect" name=font" aria-label="TTF Font Name" required>
+					{% for name in fonts %}
+						<option {% if loop.first %}selected{% endif %} value="{{ name }}">{{ name }}</option>
+					{% endfor %}
+				</select>
+				<label for="fontSelect">Select Font(TTF)</label>
+			</div>
+			
 			<div class="form-floating">
 				<input type="number" class="form-control" id="sizeInput" name="size" placeholder="Size" required>
 				<label for="sizeInput">Size</label>
