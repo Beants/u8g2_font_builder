@@ -34,7 +34,8 @@ class FontTools:
         if not os.path.exists(BDF_PATH):
             os.mkdir(BDF_PATH)
         if (bdf_name := font + '_' + 'size.bdf') not in os.listdir(BDF_PATH):
-            command = f'./{OTF_2_BDF_PATH} -r 72 -p {size} ./static/font/{font} -o ./{BDF_PATH}{bdf_name}'
+            command = f'./{OTF_2_BDF_PATH} -r 72 -p {size} static/font/{font} -o {BDF_PATH}/{bdf_name}'
+            logger.debug(f'Run command "{command}"')
             os.system(command)
         return BDF_PATH+'/'+bdf_name
 
