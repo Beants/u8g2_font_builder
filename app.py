@@ -27,7 +27,7 @@ def download():
     text = request.form['text']
     font = request.form.get('font')
     size = request.form.get('size')
-    logger.info('get form ',request.form)
+    logger.info('get form ',request.form.to_dict())
     if not text:
         return render_template('index.html', message='Please input text.')
     try:
